@@ -11,9 +11,9 @@ server:
 
 # Database Configuration (PostgreSQL)
 database:
-  host: "localhost"
+  host: "postgres.railway.internal"
   port: 5432
   user: "postgres"
-  password: "postgres"
-  dbname: "postgres"
+  password: "cDidNqYpXddmldbMhtJAhgPXzMdQOTlx"
+  dbname: "railway"
   sslmode: "disable"
