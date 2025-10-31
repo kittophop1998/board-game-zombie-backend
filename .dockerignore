@@ -1,0 +1,41 @@
+# Ignore git files
+.git
+.gitignore
+
+# Ignore documentation
+README.md
+*.md
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.iml
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore test files
+*_test.go
+
+# Ignore Docker files
+Dockerfile
+.dockerignore
+
+# Ignore environment files
+.env
+.env.local
+
+# Ignore logs
+*.log
