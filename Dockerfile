@@ -1,19 +1,16 @@
-# Build stage
+# ---------------------------------------------------------
+# Stage 1: Build Go binary
+# ---------------------------------------------------------
 FROM golang:1.25-alpine AS builder
 
 # Set working directory
 WORKDIR /app
 
-# Install git for go modules
-RUN apk add --no-cache git
-
-# Copy go mod files
+# Copy go.mod/go.sum and download dependencies
 COPY go.mod go.sum ./
+RUN go mod download && go mod verify
 
-# Download dependencies
-RUN go mod download
-
-# Copy source code
+# Copy the entire project
 COPY . .
 
 # Move to working dir for main.go
@@ -22,11 +19,13 @@ WORKDIR /app/cmd/server
 # Build Go binary
 RUN go build -o server .
 
-# Run stage
+# ---------------------------------------------------------
+# Stage 2: Run with Google Chrome
+# ---------------------------------------------------------
 FROM debian:stable-slim
 
 # Install certificates (for HTTPS support)
-RUN apt-get update && apt-get install -y ca-certificates
+# RUN apk --no-cache add ca-certificates
 
 # Set working directory
 WORKDIR /root/
