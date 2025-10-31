@@ -13,9 +13,9 @@ type RoomHandler struct {
 func (h *RoomHandler) GetRooms(c *gin.Context) {
 	rooms, err := h.RoomUC.GetRooms()
 	if err != nil {
-		lib.HandleDatabaseError(c, err, "Cannot get rooms")
+		lib.ResponseInternalServerError(c, "Cannot get rooms", err.Error())
 		return
 	}
 
-	c.JSON(200, rooms)
+	lib.ResponseSuccess(c, rooms)
 }

@@ -2,6 +2,7 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/kittiphop/zombie_board_game_back/infrastructure/lib"
 	"github.com/kittiphop/zombie_board_game_back/internal/app/usecase"
 )
 
@@ -12,9 +13,9 @@ type UserHandler struct {
 func (h *UserHandler) GetUsers(c *gin.Context) {
 	users, err := h.UserUC.GetUsers()
 	if err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		lib.ResponseInternalServerError(c, "Cannot get users", err.Error())
 		return
 	}
 
-	c.JSON(200, users)
+	lib.ResponseSuccess(c, users)
 }
