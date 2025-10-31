@@ -7,6 +7,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/stdlib"
+	"github.com/kittiphop/zombie_board_game_back/internal/domain/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -46,5 +47,16 @@ func InitializePostgres(dsn string) (*gorm.DB, error) {
 
 // ===== Database Migration =====
 func Migrate(db *gorm.DB) error {
+	log.Println("🚀 Running database migrations...")
+
+	if err := db.AutoMigrate(
+		&model.User{},
+		&model.Room{},
+	); err != nil {
+		log.Println("❌ Migration failed:", err)
+		return err
+	}
+
+	log.Println("✅ Migration completed!")
 	return nil
 }
